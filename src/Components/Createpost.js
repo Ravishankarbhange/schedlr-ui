@@ -22,7 +22,10 @@ const CreatePost = () => {
 
   return (
     <div className="createPost flex justify-center py-5">
-      <div className="bg-slate-200  h-[550px] w-[500px]">
+      <div
+        id="uploadPost"
+        className="bg-slate-200 border border-black h-[550px] w-[400px]"
+      >
         {console.log(uploadImage)}
         <img className="h-[510px] w-full" src={uploadImage} />
         <input
@@ -39,36 +42,51 @@ const CreatePost = () => {
         </button>
       </div>
       <div className="w-[410px] h-[550px]">
-        <div id="inputText">
-          <input className="w-full h-[355px] border border-black" type="text" />
+        <div id="inputText" className="h-[355px]">
+          <textarea
+            className="w-full  border border-black p-2 h-full"
+            rows="8"
+            placeholder="Write your post description"
+          ></textarea>
         </div>
-        <div id="platformSelection" className="flex border border-black h-[195px]">
-          <div className="flex flex-col w-full px-3">
-            <label className="flex justify-around my-2">
+        <div id="platformSelection" className="flex border border-black h-[195px] bg-slate-300"
+        >
+          <div className="flex flex-col px-3 border ">
+            <label className="flex items-center justify-start space-x-4 my-2">
               <input class="custom-checkbox" type="checkbox" name="option1" />
-              <i class="fa-brands fa-twitter fa-2xl my-4"></i>
-              <h2 className="font-rajdhani text-xl mt-1">Twitter</h2>
+              <i class="fa-brands fa-twitter fa-xl"></i>
+              <h2 className="font-rajdhani text-xl">Twitter</h2>
             </label>
-            <label className="flex justify-around my-2">
+            <label className="flex items-center justify-start space-x-4 my-2">
               <input class="custom-checkbox" type="checkbox" name="option2" />
-              <i class="fa-brands fa-facebook fa-2xl my-4"></i>
-              <h2 className="font-rajdhani text-xl mt-1">facebook</h2>
+              <i class="fa-brands fa-facebook fa-xl"></i>
+              <h2 className="font-rajdhani text-xl">Facebook</h2>
             </label>
-            <label className="flex justify-around my-2">
+            <label className="flex items-center justify-start space-x-4 my-2">
               <input class="custom-checkbox" type="checkbox" name="option3" />
-              <i class="fa-brands fa-linkedin fa-2xl my-4"></i>
-              <h2 className="font-rajdhani text-xl mt-1">linkedin</h2>
+              <i class="fa-brands fa-linkedin fa-xl"></i>
+              <h2 className="font-rajdhani text-xl">LinkedIn</h2>
             </label>
-            <label className="flex justify-around my-2">
+            <label className="flex items-center justify-start space-x-4 my-2">
               <input class="custom-checkbox" type="checkbox" name="option4" />
-              <i class="fa-brands fa-instagram fa-2xl my-4"></i>
-              <h2 className="font-rajdhani text-xl mt-1">Instagram</h2>
+              <i class="fa-brands fa-instagram fa-xl"></i>
+              <h2 className="font-rajdhani text-xl">Instagram</h2>
             </label>
           </div>
-          <div id="uploadButtons flex flex-col flex-start" className="p-6">
-            <button className="bg-[#496885] p-2 text-white rounded-sm">Post Now</button>
-            <p className="my-4">Schedule your post at </p>
-            <input className="bg-[#496885] p-2 text-white rounded-sm" type="datetime-local"/>
+
+          <div id="uploadButtons" className="flex flex-col flex-start">
+            <div className="border h-[60px] w-full">
+              <button className="bg-[#496885] p-2 text-white rounded-sm w-full mt-5">
+                Post Now
+              </button>
+            </div>
+            <div className="w-full pt-2">
+              <p className="my-4 text-left">Schedule your post at </p>
+              <input
+                className="bg-[#496885] p-2 text-white rounded-sm"
+                type="datetime-local"
+              />
+            </div>
           </div>
         </div>
       </div>
