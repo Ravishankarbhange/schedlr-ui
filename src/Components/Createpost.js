@@ -21,10 +21,10 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="createPost flex justify-center py-5">
+    <div className="createPost flex justify-center py-5 ">
       <div
         id="uploadPost"
-        className="bg-slate-200 border border-black h-[550px] w-[400px]"
+        className="bg-slate-200 border border-black h-[550px] w-[400px] shadow-2xl"
       >
         {console.log(uploadImage)}
         <img className="h-[510px] w-full" src={uploadImage} />
@@ -41,7 +41,7 @@ const CreatePost = () => {
           Upload Image
         </button>
       </div>
-      <div className="w-[410px] h-[550px]">
+      <div className="w-[410px] h-[550px]  shadow-2xl">
         <div id="inputText" className="h-[355px]">
           <textarea
             className="w-full  border border-black p-2 h-full"
@@ -49,7 +49,7 @@ const CreatePost = () => {
             placeholder="Write your post description"
           ></textarea>
         </div>
-        <div id="platformSelection" className="flex border border-black h-[195px] bg-slate-300"
+        <div id="platformSelection" className="flex border border-black h-[195px] bg-[ECF0F1]"
         >
           <div className="flex flex-col px-3 border ">
             <label className="flex items-center justify-start space-x-4 my-2">
