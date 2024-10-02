@@ -1,50 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const MyProfile = () => {
 
-    const buildLinkedInUrl = () => {
-        const linkedInAuthUrl = 'https://www.linkedin.com/oauth/v2/authorization';
-        const params = {
-            response_type: 'code',
-            client_id: '862ar2q201lf2i', 
-            redirect_uri: 'http://localhost:3000/',
-            state: 'DCEeFWf45A53sdfKef424', 
-            scope: 'openid w_member_social', 
-        };
-        const queryParams = new URLSearchParams(params).toString();
-        return `${linkedInAuthUrl}?${queryParams}`;
-    };
-    const handleLinkedInLogin = () => {
-        window.location.href = buildLinkedInUrl(); 
-    };
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [userid, setUserid] = useState('1');
+
 
     const buildLinkedInAuthUrl = () => {
         const linkedInAuthUrl = 'https://www.linkedin.com/oauth/v2/authorization';
         const params = {
             response_type: 'code',
             client_id: '862ar2q201lf2i', 
-            redirect_uri: 'http://localhost:3000/', 
+            redirect_uri: 'http://localhost:3000/myprofile', 
             state: 'DCEeFWf45A53sdfKef424', 
-            scope: 'openid profile email'
+            scope: 'openid profile email w_member_social'
         };
         const queryParams = new URLSearchParams(params).toString();
         return `${linkedInAuthUrl}?${queryParams}`;
     };
 
-    const handleLinkedAuthInLogin = () => {
+    const handleLinkedInLogin = () => {
         const authUrl = buildLinkedInAuthUrl();
         window.location.href = authUrl; // Redirect to the LinkedIn authorization URL
     };
 
     
 
-    const sendCodeToBackend = async (code, state) => {
+    const sendCodeToBackend = async (code, state, userId) => {
         try {
             console.log("Calling SPRING BOOT API");
             const response = await axios.post('http://localhost:8081/linkedin/authCode', {
                 code,
-                state
+                state,
+                userId
             });
             console.log('Response from backend:', response.data);
         } catch (error) {
@@ -52,13 +42,34 @@ const MyProfile = () => {
         }
     };
 
+    const fetchUserInfo = async (id) => {
+        const url = `http://localhost:8081/myProfile/userInfo?userId=${id.toString()}`;
+
+        try {
+          const response = await fetch(url); // Adjust the URL as needed
+          const data = await response.json();
+          console.log(data);
+          setUserName(data.username);
+          setEmail(data.email);
+          // Set state or handle the data here
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+    };
+
     useEffect(() => {
+
+        console.log(localStorage.getItem("userId"));
+        setUserid(localStorage.getItem("userId"));
+
+        fetchUserInfo(userid);
+          
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         const state = urlParams.get('state');
 
         if (code && state) {
-            sendCodeToBackend(code, state);
+            sendCodeToBackend(code, state,userid);
         }
     }, []); 
 
@@ -69,9 +80,9 @@ const MyProfile = () => {
                 <div className="border w-[600px] border-black py-10 px-5 rounded-lg bg-[#ECF0F1] shadow-2xl">
                     <div className="grid grid-cols-3 gap-4">
                         <label className="text-left pl-5">UserName</label>
-                        <input type="text" value={"Ravishankar"} className="rounded-sm col-span-2 pl-1" disabled/>
+                        <input type="text" value={userName} className="rounded-sm col-span-2 pl-1" disabled/>
                         <label className="text-left pl-5">Email</label>
-                        <input type="text" value={"ravishankar.bhange@gmail.com"} className="rounded-sm col-span-2 pl-1" disabled />
+                        <input type="text" value={email} className="rounded-sm col-span-2 pl-1" disabled />
                     </div>
                 </div>
 
@@ -95,7 +106,6 @@ const MyProfile = () => {
                         <button className="border border-black bg-[#4267B2] text-white p-1 col-span-3">Facebook</button>
                         <button className="border border-black bg-[#d62976] text-white p-1 col-span-3">Instagram</button>
                         <button className="border border-black bg-[#0C63BC] text-white p-1 col-span-3" onClick={handleLinkedInLogin}>Linkedin</button>
-                        <button className="border border-black bg-[#0C63BC] text-white p-1 col-span-3" onClick={handleLinkedAuthInLogin}>Linkedin Auth</button>
                         <button className="border border-black bg-[#1da1f2] text-white p-1 col-span-3 ">Twitter</button>
                     </div>
                 </div>
