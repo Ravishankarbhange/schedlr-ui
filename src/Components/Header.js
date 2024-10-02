@@ -1,35 +1,39 @@
-// import { Link } from "react-router-dom";
-
+import React from "react";
 import { Link } from "react-router-dom";
 
-const Header = () => (
+export const Header = ({ isAuthenticated }) => (
   <div className="flex justify-between px-52 items-center h-14 bg-[#2C3E50] sticky top-0">
-    {/* <img className="h-5 w-5 ml-0" src="https://media.istockphoto.com/id/1373245842/vector/calendar-with-check-mark-icon-with-long-shadow-on-blank-background-flat-design.jpg?s=612x612&w=0&k=20&c=rPRRjRgWIqg5ev49MRi-CRwR2NBSnNyj8fj5i36U9D4=" /> */}
-    <div className=" flex items-center">
-      <h2 className="ml-2 font-rajdhani text-3xl text-white">SCHEDLR</h2>
+    <div className="flex items-center">
+      <h2 className="ml-2 font-rajdhani text-3xl text-white">
+        <Link to="/">SCHEDLR</Link>
+      </h2>
     </div>
+
     <div className="flex justify-center no-underline">
       <ul className="flex justify-center no-underline">
         <li className="hover:bg-slate-500 mx-2 p-1 px-2 rounded-lg text-white">
-        Dashboard
+          <Link to="/home">Home</Link>
         </li>
-       
         <li className="hover:bg-slate-500 mx-2 p-1 px-2 rounded-lg text-white">
-        CreatePost
+          <Link to="/createpost">CreatePost</Link>
         </li>
-       
         <li className="hover:bg-slate-500 mx-2 p-1 px-2 rounded-lg text-white">
-          MarketPlace
+          <Link to="/marketplace">MarketPlace</Link>
         </li>
-        
         <li className="hover:bg-slate-500 mx-2 p-1 px-2 rounded-lg text-white">
-        Insights
+          <Link to="/insights">Insights</Link>
         </li>
-        
         <li className="hover:bg-slate-500 mx-2 p-1 px-2 rounded-lg text-white">
-          MyProfile
+          <Link to="/myprofile">MyProfile</Link>
         </li>
-        
+        {/* Conditionally render Login and Sign Up links */}
+        {/* {!isAuthenticated && (
+          <>
+            <li className="hover:bg-slate-500 mx-2 p-1 px-2 rounded-lg text-white">
+              <Link to="/login">Login / SignUp</Link>
+            </li>
+          </>
+        )} */}
       </ul>
     </div>
   </div>
