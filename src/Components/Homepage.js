@@ -18,7 +18,7 @@ export default function Homepage() {
           email: email,
           password: password,
         });
-
+        console.log(response);
         if (response.data && response.data.userid) {
           alert("Login successful! Redirecting to homepage...");
           // Store the userId in localStorage
